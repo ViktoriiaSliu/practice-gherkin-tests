@@ -14,8 +14,10 @@ Feature: Cart and Checkout
     Then I should see that I am already logged in
     When I click the "Proceed to Checkout" button again
     Then I should be redirected to the "Billing Address" page
-    When I enter all required billing information and click the "Proceed to Checkout" button
+    When I enter all the required billing information 
+    And  click the "Proceed to Checkout" button
     Then I should be redirected to the "Payment" page
-    When I choose a payment method and enter valid payment information
+    When I choose a payment method 
+    And enter valid payment information
     And I click the "Confirm" button
     Then I should see a message "Payment was successful" on the checkout page
