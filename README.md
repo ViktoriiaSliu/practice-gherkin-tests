@@ -4,7 +4,7 @@ This project contains Gherkin feature scenarios written for the [Practice Softwa
 
 ## 📋 What's Included
 
-- **12 Gherkin scenarios** across major functional areas:
+- **8 Gherkin scenarios** across major functional areas:
   - User Sign Up & Sign In
   - Product Search
   - Product Filtering & Sorting
