@@ -8,6 +8,6 @@ Feature: Product Search and Details
 
   Scenario: View Product Details
     Given I am on the product listing page
-    When I click on a product name "Cordless Drill 24V"
-    Then I should be taken to the product details page for "Cordless Drill 24V"
+    When I click on a product name "Bolt Cutters"
+    Then I should be taken to the product details page for "Bolt Cutters"
     And I should see the description, price, and image
