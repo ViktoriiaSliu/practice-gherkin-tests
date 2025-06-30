@@ -8,8 +8,8 @@ Feature: Cart and Checkout
     And the basket icon in the header should display "2" items
 
   Scenario: Proceed to checkout with items in the cart
-    Given I have "Bolt Cutters" in my shopping cart
-    And I am on the "Cart" page
+    Given I am on the "Cart" page
+    And I have "Bolt Cutters" in my shopping cart
     When I click the "Proceed to Checkout" button
     Then I should see that I am already logged in
     When I click the "Proceed to Checkout" button again
