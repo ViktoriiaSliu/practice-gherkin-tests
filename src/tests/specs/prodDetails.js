@@ -1,29 +1,36 @@
+import {assert} from 'chai';
+import {expect} from 'chai';
+import {should} from 'chai';
+should();
+
 describe('View Product Details', () => {
     it('should display correct details for Bolt Cutters', async () => {
 
         await browser.url('https://practicesoftwaretesting.com/');
 
         const productLink = await $('h5=Bolt Cutters');
+        await productLink.waitForClickable({ timeout: 5000 });
         await productLink.click();
 
-        await browser.pause(2000); 
-
         const productTitle = await $('h1[data-test="product-name"]');
-        await expect(productTitle).toHaveText('Bolt Cutters');
+        await productTitle.waitForDisplayed({ timeout: 5000 });
+
+        const titleText = await productTitle.getText();
+        titleText.should.equal('Bolt Cutters');
 
         const description = await $('p[data-test="product-description"]');
-        await expect(description).toBeDisplayed();
+        await description.waitForDisplayed({ timeout: 5000 });
         const descriptionText = await description.getText();
-        expect(descriptionText.length).toBeGreaterThan(0);
+        expect(descriptionText).to.be.a('string').that.is.not.empty;
 
         const price = await $('span[data-test="unit-price"]');
-        await expect(price).toBeDisplayed();
+        await price.waitForDisplayed({ timeout: 5000 });
         const priceText = await price.getText();
-        expect(priceText).toMatch(/\d/); 
+        assert.match(priceText, /\d/, 'Price should contain digits');
 
         const productImage = await $('img[alt="Bolt Cutters"]');
-        await expect(productImage).toBeDisplayed();
+        await productImage.waitForDisplayed({ timeout: 5000 });
         const imageSrc = await productImage.getAttribute('src');
-        expect(imageSrc).toMatch(/pliers03/i); 
+        expect(imageSrc).to.match(/pliers03/i);
     });
 });

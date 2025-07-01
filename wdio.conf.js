@@ -1,3 +1,4 @@
+const chai = import('chai');
 export const config = {
     //
     // ====================
@@ -21,7 +22,7 @@ export const config = {
     // of the config file unless it's absolute.
     //
     specs: [
-        './src/tests/specs/**/addToCard.js'
+        './src/tests/specs/**/*.js'
     ],
     suites: {
         signUpLogin: [
@@ -68,17 +69,10 @@ export const config = {
     // https://saucelabs.com/platform/platform-configurator
     //
     capabilities: [{
-        browserName: 'chrome',
-        'goog:chromeOptions': {
-        args: ['headless', 'disable-gpu']
-        }
+        browserName: 'chrome','goog:chromeOptions': {args: ['headless', 'disable-gpu']}
     }, {
-        browserName: 'firefox',
-        'moz:firefoxOptions': {
-        args: ['-headless']}
-    }, { browserName: 'safari',
-
-    }
+        browserName: 'firefox','moz:firefoxOptions': {args: ['-headless']}
+    }, { browserName: 'safari',}
     ],
 
     //
@@ -215,8 +209,11 @@ export const config = {
      * @param {Array.<String>} specs        List of spec file paths that are to be run
      * @param {object}         browser      instance of created browser/device session
      */
-    // before: function (capabilities, specs) {
-    // },
+    before: function (capabilities, specs) {
+        global.expect = chai.expect;
+        global.assert = chai.assert;
+        chai.should();
+    },
     /**
      * Runs before a WebdriverIO command gets executed.
      * @param {string} commandName hook command name
