@@ -26,20 +26,20 @@ export const config = {
     ],
     suites: {
         signUpLogin: [
-            './src/tests/specs/**/signUp.js',
-            './src/tests/specs/**/login.js'
+            './src/tests/specs/**/register_spec.js',
+            './src/tests/specs/**/login_spec.js'
         ],
         filterSort: [
-            './src/tests/specs/**/filter.js',
-            './src/tests/specs/**/sort.js'
+            './src/tests/specs/**/filter_product_spec.js',
+            './src/tests/specs/**/sort_product_spec.js'
         ],
         prodSearch: [
-            './src/tests/specs/**/searchProd.js',
-            './src/tests/specs/**/prodDetails.js'
+            './src/tests/specs/**/search_product_spec.js',
+            './src/tests/specs/**/view_details_product_spec.js'
         ],
         cartCheckout: [
-            './src/tests/specs/**/addToCard.js',
-            './src/tests/specs/**/checkout.js'
+            './src/tests/specs/**/add_to_cart_spec.js',
+            './src/tests/specs/**/checkout_spec.js'
         ],
     },
     // Patterns to exclude.
@@ -69,9 +69,9 @@ export const config = {
     // https://saucelabs.com/platform/platform-configurator
     //
     capabilities: [{
-        browserName: 'chrome','goog:chromeOptions': {args: ['headless', 'disable-gpu']}
+        browserName: 'chrome', 'goog:chromeOptions': {args: ['headless', 'disable-gpu']}
     }, {
-        browserName: 'firefox','moz:firefoxOptions': {args: ['-headless']}
+        browserName: 'firefox', 'moz:firefoxOptions': {args: ['headless']}
     }, { browserName: 'safari',}
     ],
 
