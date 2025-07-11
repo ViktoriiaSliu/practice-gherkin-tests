@@ -1,8 +1,25 @@
 import LoginPage from '../pageObjects/login_page.js';
+import RegisterPage from '../pageObjects/register_page.js';
 import {expect} from 'chai';
 import { testData } from '../data/test_data.js';
 
 describe('Successful User Login', () => {
+
+    before(async () => {
+
+        await RegisterPage.open();
+
+        await RegisterPage.registerUser(testData.userStatic);
+
+        await browser.waitUntil(
+            async () => (await browser.getUrl()).includes('/auth/login'),
+            {
+                timeout: 5000,
+                timeoutMsg: 'Expected to be redirected to login page after registration'
+            }
+        );
+    });
+
     it('should allow a user to login with valid credentials', async () => {
 
         await LoginPage.open();

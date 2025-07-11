@@ -22,7 +22,7 @@ export const config = {
     // of the config file unless it's absolute.
     //
     specs: [
-        './src/tests/specs/**/*.js'
+        './src/tests/specs/**/login_spec.js'
     ],
     suites: {
         signUpLogin: [
@@ -71,7 +71,7 @@ export const config = {
     capabilities: [{
         browserName: 'chrome', 'goog:chromeOptions': {args: ['headless', 'disable-gpu']}
     }, {
-        browserName: 'firefox', 'moz:firefoxOptions': {args: ['headless']}
+        browserName: 'firefox', 'moz:firefoxOptions': {args: ['-headless']}
     }, { browserName: 'safari',}
     ],
 

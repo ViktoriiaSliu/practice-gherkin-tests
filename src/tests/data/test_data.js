@@ -14,6 +14,20 @@ export const testData = {
         password: 'Strong#Password#123'
     },
 
+    userStatic: {
+        firstName: 'Test',
+        lastName: 'User',
+        dob: '04.05.1995',
+        street: 'Franka',
+        postalCode: '37500',
+        city: 'Lviv',
+        state: 'Lviv',
+        country: 'AL',
+        phone: '380930055026',
+        email: 'testuser85@example.com',
+        password: 'Strong#Password#123'
+    },
+
     loginUser: {
         email: 'testuser85@example.com',
         password: 'Strong#Password#123'
