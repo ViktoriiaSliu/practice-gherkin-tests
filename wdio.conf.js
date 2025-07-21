@@ -22,7 +22,7 @@ export const config = {
     // of the config file unless it's absolute.
     //
     specs: [
-        './src/tests/specs/**/login_spec.js'
+        './src/tests/specs/**/*.js'
     ],
     suites: {
         signUpLogin: [

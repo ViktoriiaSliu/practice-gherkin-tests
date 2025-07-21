@@ -1,48 +1,61 @@
 import ProductDetailsPage from '../pageObjects/product_detail_page.js';
+import BasePage from '../pageObjects/base_page.js';
 import CartPage from '../pageObjects/cart_page.js';
 import {expect} from 'chai';
 import { testData } from '../data/test_data.js';
 
 
 describe('Proceed to Checkout with Items in the Cart', () => {
+
+    const validEmail = testData.loginUser.email;
+    const validPassword = testData.loginUser.password;
+    const validBillingDetails = testData.user;
+    const validCardDetails = testData.card;
+
     it('should open cart page and proceed with checkout', async () => {
 
         await ProductDetailsPage.open('');
-        await ProductDetailsPage.openProduct();
-        await ProductDetailsPage.addToCart();
+        await ProductDetailsPage.productLink.click();
+        await ProductDetailsPage.addToCartButton.click();
 
-        await browser.pause(5000);
+        await ProductDetailsPage.successPopupMessage.waitForDisplayed({ reverse: true, timeout: 10000 });
 
-        await CartPage.openCart();
-        const cartItemText = (await CartPage.cartItemTitle.getText()).trim();
-        expect(cartItemText).to.equal(testData.products.boltCutters);
+        await BasePage.waitUntilClickable(CartPage.cartIcon, BasePage.timeout, 'Cart icon not clickable');
 
-        await CartPage.proceedToCheckoutStep1();
+        await CartPage.cartIcon.click();
+
+        const cartItemName = (await CartPage.cartItemTitle.getText()).trim();
+        const expectedItemName = testData.products.boltCutters;
+        expect(cartItemName).to.equal(expectedItemName);
+
+        await CartPage.proceedToCheckoutBtnCart.click();
 
     });
+    
     it('should let you login with valid credentials', async () => {
        
-        await CartPage.loginDuringCheckout(testData.loginUser.email, testData.loginUser.password);
+        await CartPage.loginDuringCheckout(validEmail, validPassword);
 
         expect(await CartPage.confirmMessage.isDisplayed()).to.be.false;
 
-        await CartPage.proceedToCheckoutStep2();
+        await CartPage.proceedToCheckoutBtnLogin.click();
     });
 
     it('should let you enter billing data', async () => {
 
-        await CartPage.fillBillingDetails(testData.user);
+        await CartPage.fillBillingDetails(validBillingDetails);
 
-        await CartPage.proceedToCheckoutStep3();
+        await CartPage.proceedToCheckoutBtnBill.click();
 
     });
     it('should let you enter payment data', async () => {
 
-        await CartPage.fillPaymentDetails(testData.card);
+        await CartPage.fillPaymentDetails(validCardDetails);
 
-        await CartPage.confirmPayment();
+        await CartPage.confirmButton.click();
 
         const paymentText = await CartPage.paymentSuccessMessage.getText();
-        expect(paymentText.toLowerCase()).to.include(testData.strings.successPayment.toLowerCase());
+        const expectedpaymentText = testData.strings.successPayment;
+        expect(paymentText.toLowerCase()).to.include(expectedpaymentText.toLowerCase());
     });
 });

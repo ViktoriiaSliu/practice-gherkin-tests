@@ -3,17 +3,20 @@ import {expect} from 'chai';
 import { testData } from '../data/test_data.js';
 
 describe('View Product Details', () => {
+
+    const productDetailsName = testData.products.boltCutters;
+
     it('should open product Bolt Cutters', async () => {
 
         await ProductListingPage.open('');
 
-        await ProductListingPage.selectProduct(testData.products.boltCutters);
+        await ProductListingPage.selectProduct(productDetailsName);
 
     });
 
     it('should display correct title for Bolt Cutters', async () => {
         const title = await ProductListingPage.productTitle.getText();
-        expect(title).to.equal(testData.products.boltCutters);
+        expect(title).to.equal(productDetailsName);
     });
 
     it('should display correct description for Bolt Cutters', async () => {

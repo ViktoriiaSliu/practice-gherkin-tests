@@ -15,7 +15,8 @@ describe('Successful User Sign Up', () => {
 
         await RegisterPage.waitForElement(RegisterPage.loginHeader, 5000);
         const headerText = await RegisterPage.loginHeader.getText();
-        expect(headerText).to.equal(testData.strings.loginHeader);
+        const expectedHeaderText = testData.strings.loginHeader;
+        expect(headerText).to.equal(expectedHeaderText);
 
     });
 

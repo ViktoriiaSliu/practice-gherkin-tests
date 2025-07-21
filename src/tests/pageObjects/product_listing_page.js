@@ -11,8 +11,7 @@ class ProductListingPage extends BasePage {
     get sortLowToHighOption() { return $('option[value="price,asc"]'); }
     get productPrices() { return $$('span.float-end.text-muted > span[data-test="product-price"]'); }
 
-    get categoryFilter() { return $('fieldset[_ngcontent-ng-c3197249892]'); }
-    get powerToolsOption() { return $('label=Power Tools').$('input[type="checkbox"]'); }
+    get powerToolsOption() { return $('//label[contains(., "Power Tools")]/input'); }
 
     productLink(name) { return $(`h5=${name}`); }
 
@@ -26,10 +25,6 @@ class ProductListingPage extends BasePage {
         await this.searchButton.click();
     }
 
-    async filterByPowerTools() {
-        await this.powerToolsOption.click();
-    }
-
     async sortByPriceLowToHigh() {
         await this.sortByDropdown.click();
         await this.sortLowToHighOption.click();
@@ -37,7 +32,7 @@ class ProductListingPage extends BasePage {
 
     async selectProduct(name) {
         const product = await this.productLink(name);
-        await product.waitForClickable({ timeout: 5000 });
+        await product.waitForClickable({ timeout: this.timeout });
         await product.click();
     }
 

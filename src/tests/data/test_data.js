@@ -3,21 +3,21 @@ export const testData = {
    user: {
         firstName: 'Test',
         lastName: 'User',
-        dob: '04.05.1995',
+        dob: '1995-05-04',
         street: 'Franka',
         postalCode: '37500',
         city: 'Lviv',
         state: 'Lviv',
         country: 'AL',
         phone: '380930055026',
-        email: `testuser${Date.now()}example.com`,
+        email: `testuser${Date.now()}@example.com`,
         password: 'Strong#Password#123'
     },
 
     userStatic: {
         firstName: 'Test',
         lastName: 'User',
-        dob: '04.05.1995',
+        dob: '1995-05-04',
         street: 'Franka',
         postalCode: '37500',
         city: 'Lviv',

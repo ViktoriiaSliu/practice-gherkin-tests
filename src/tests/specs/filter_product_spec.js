@@ -1,4 +1,5 @@
 import ProductListingPage from '../pageObjects/product_listing_page.js';
+import BasePage from '../pageObjects/base_page.js';
 import {expect} from 'chai';
 
 describe('Filter Products by Category', () => {
@@ -6,19 +7,19 @@ describe('Filter Products by Category', () => {
         
         await ProductListingPage.open('');
 
-        await ProductListingPage.filterByPowerTools();
+        await ProductListingPage.powerToolsOption.click();
        
     });
 
     it('should display only products in Power Tools category when filtered', async () => {
-       
-        await browser.waitUntil(async () => {
-            const productTitles = await ProductListingPage.productPrices;
-            return productTitles && productTitles.length > 0;
-        }, {
-            timeout: 5000,
-            timeoutMsg: 'Expected at least one product to be displayed after filtering'
-        });
+
+        await BasePage.waitUntil(
+            async () => {
+                const productTitles = await ProductListingPage.productPrices;
+                return productTitles && productTitles.length > 0;
+            },
+            'Expected at least one product to be displayed after filtering'
+        );
 
         const productTitles = await ProductListingPage.productPrices;
         expect(productTitles.length).to.be.greaterThan(0);

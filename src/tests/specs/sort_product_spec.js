@@ -1,4 +1,5 @@
 import ProductListingPage from '../pageObjects/product_listing_page.js';
+import BasePage from '../pageObjects/base_page.js';
 import {expect} from 'chai';
 
 describe('Sort Products by Price: Low to High', () => {
@@ -10,13 +11,18 @@ describe('Sort Products by Price: Low to High', () => {
 
         await ProductListingPage.sortByPriceLowToHigh();
 
-        await browser.waitUntil(async () => {
-            const firstPriceAfter = await ProductListingPage.productPrices[0].getText();
-            return firstPriceAfter !== firstPriceBefore;
-        }, {
-            timeout: 5000,
-            timeoutMsg: 'Expected product list to update after sorting within 5s'
-        });
+        await BasePage.waitUntil(
+            async () => {
+                const prices = await ProductListingPage.productPrices;
+                if (!prices || prices.length === 0) {
+                    return false; 
+                }
+                const firstPriceAfter = await prices[0].getText();
+                return firstPriceAfter !== firstPriceBefore;
+            },
+            'Expected product list to update after sorting within 5s'
+        );
+
 
     });
     it('should display products sorted by Price Low to High', async () => {
