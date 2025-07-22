@@ -50,7 +50,14 @@ export default class BasePage {
         timeout,
         timeoutMsg: timeoutMsg || `Element was not clickable after ${timeout}ms`
     });
-}
+    }
+
+    static async waitUntilUrlContains(expectedPart, timeout = this.timeout, timeoutMsg = `Expected URL to contain ${expectedPart}`) {
+    return await browser.waitUntil(
+        async () => (await browser.getUrl()).includes(expectedPart),
+        { timeout, timeoutMsg }
+    );
+    }
     
 }
 

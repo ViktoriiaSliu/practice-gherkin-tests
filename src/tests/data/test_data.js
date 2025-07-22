@@ -24,12 +24,12 @@ export const testData = {
         state: 'Lviv',
         country: 'AL',
         phone: '380930055026',
-        email: 'testuser85@example.com',
+        email: 'testuser86@example.com',
         password: 'Strong#Password#123'
     },
 
     loginUser: {
-        email: 'testuser85@example.com',
+        email: 'testuser86@example.com',
         password: 'Strong#Password#123'
     },
 

@@ -6,10 +6,12 @@ import BasePage from './base_page.js';
     get passwordInput() { return $('input[id="password"]'); }
     get loginButton() { return $('input[type="submit"]'); }
     get dashboardHeader() { return $('h1'); }
+    
 
      open () {
         return super.open('auth/login');
     }
+
     
     async login(email, password) {
         await this.emailInput.setValue(email);

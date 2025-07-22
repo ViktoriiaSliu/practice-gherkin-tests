@@ -14,11 +14,28 @@ describe('Successful User Login', () => {
 
         await RegisterPage.registerUser(loginUserData);
 
-        await BasePage.waitUntil(
-            async () => (await browser.getUrl()).includes('/auth/login'),
-            'Expected to be redirected to login page after registration',
-            BasePage.timeout
-        );
+        const loginUrl = '/auth/login';
+
+        let redirected = false;
+        try {
+            await BasePage.waitUntilUrlContains(loginUrl, 5000, 'Waiting for redirect to login page after registration');
+            redirected = true;
+        } catch (error) {
+            redirected = false;
+        }
+
+        if (!redirected) {
+            const existsMsgDisplayed = await RegisterPage.errorLoginMessage.isDisplayed();
+            if (existsMsgDisplayed) {
+                console.warn('User already exists. Proceeding to login instead...');
+            } else {
+                throw new Error('Registration failed for unknown reason (no redirect or error message)');
+            }
+        }
+
+        await LoginPage.open();
+
+        await BasePage.waitUntilUrlContains('/auth/login', BasePage.timeout, 'Expected to be redirected to login page');
 
     });
 

@@ -16,6 +16,15 @@ class RegisterPage extends BasePage {
     get registerButton() { return $('button[type="submit"]'); }
     get loginHeader() { return $('h3=Login'); }
     get loginButton() { return $('input[data-test="login-submit"]'); }
+    get errorLoginMessage() { return $('div[_ngcontent-ng-c1437189899] .help-block'); }
+
+    async isEmailExistsMessageDisplayed() {
+        return await this.errorLoginMessage.isDisplayed();
+    }
+
+    async getEmailExistsMessageText() {
+        return await this.errorLoginMessage.getText();
+    }
 
 
     async registerUser(user) {
