@@ -10,14 +10,14 @@ pipeline {
         stage('Install Dependencies') { 
             steps {
                 echo "Installing Node.js dependencies..."
-                sh 'npm install' 
+                bat 'npm install' 
             }
         }
 
         stage('Run UI Tests') {
             steps {
                 echo "Running WebdriverIO UI tests..."
-                sh 'npx wdio run wdio.conf.js' 
+                bat 'npx wdio run wdio.conf.js' 
             }
         }
     }
