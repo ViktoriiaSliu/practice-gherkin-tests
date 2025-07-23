@@ -30,6 +30,7 @@ describe('Add Product to Cart', () => {
     it('should add 2 Bolt Cutters to the cart with success message', async () => {
 
         await ProductDetailsPage.addToCartButton.click();
+        await browser.pause(3000)
 
         const successText = await ProductDetailsPage.successMessage.getText();
         const expectedSuccessText = testData.strings.successAddMessageTxt;
