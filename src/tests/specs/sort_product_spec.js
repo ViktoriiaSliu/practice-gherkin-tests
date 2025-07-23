@@ -6,10 +6,8 @@ describe('Sort Products by Price: Low to High', () => {
     it('should sort products in ascending order when selected', async () => {
 
         await ProductListingPage.open('');
-        await browser.pause(1000)
 
         const firstPriceBefore = await ProductListingPage.productPrices[0].getText();
-        await browser.pause(1000)
 
         await ProductListingPage.sortByPriceLowToHigh();
 

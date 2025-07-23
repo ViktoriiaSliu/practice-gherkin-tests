@@ -2,7 +2,7 @@ import BasePage from './base_page.js';
 
 class CartPage extends BasePage {
 
-    get cartIcon() { return $('a[data-test="nav-cart"]'); }
+    get cartIcon() { return $('[data-test="nav-cart"]'); }
     get cartItemTitle() { return $('span[data-test="product-title"]'); }
 
     get proceedToCheckoutBtnCart() { return $('button[data-test="proceed-1"]'); }

@@ -46,10 +46,9 @@ export default class BasePage {
     }
 
     static async waitUntilClickable(element, timeout = BasePage.timeout, timeoutMsg = '') {
-    await element.waitForClickable({
-        timeout,
-        timeoutMsg: timeoutMsg || `Element was not clickable after ${timeout}ms`
-    });
+    await element.waitForDisplayed({ timeout, timeoutMsg: timeoutMsg || `Element not displayed after ${timeout}ms` });
+    await element.waitForEnabled({ timeout, timeoutMsg: timeoutMsg || `Element not enabled after ${timeout}ms` });
+    await element.waitForClickable({ timeout, timeoutMsg: timeoutMsg || `Element was not clickable after ${timeout}ms` });
     }
 
     static async waitUntilUrlContains(expectedPart, timeout = this.timeout, timeoutMsg = `Expected URL to contain ${expectedPart}`) {
@@ -57,6 +56,35 @@ export default class BasePage {
         async () => (await browser.getUrl()).includes(expectedPart),
         { timeout, timeoutMsg }
     );
+    }
+
+    static async waitForElementToDisappear(element, timeout = BasePage.timeout, timeoutMsg) {
+        await element.waitForDisplayed({
+            reverse: true,
+            timeout: timeout,
+            timeoutMsg: timeoutMsg || `Element did not disappear after ${timeout}ms`
+        });
+    }
+
+    static async moveMouseToViewportCorner(x = 0, y = 0) {
+        await browser.performActions([{
+            type: 'pointer',
+            id: 'mouse',
+            parameters: { pointerType: 'mouse' },
+            actions: [
+                { type: 'pointerMove', origin: 'viewport', x: x, y: y },
+            ]
+        }]);
+        await browser.releaseActions();
+    }
+
+    static async forceHideElement(selector) {
+        await browser.execute((sel) => {
+            const el = document.querySelector(sel);
+            if (el) {
+                el.style.display = 'none';
+            }
+        }, selector);
     }
     
 }

@@ -22,7 +22,7 @@ export const config = {
     // of the config file unless it's absolute.
     //
     specs: [
-        './src/tests/specs/**/add_to_cart_spec.js'
+        './src/tests/specs/**/*_spec.js'
     ],
     suites: {
         signUpLogin: [
@@ -69,10 +69,10 @@ export const config = {
     // https://saucelabs.com/platform/platform-configurator
     //
     capabilities: [{
-        browserName: 'chrome', //'goog:chromeOptions': {args: ['headless', 'disable-gpu']}
+        browserName: 'chrome', 'goog:chromeOptions': {args: ['headless', 'disable-gpu','--window-size=1920,1080']}
     }, {
-        browserName: 'firefox',//'moz:firefoxOptions': {args: ['-headless']}
-    }, //{ browserName: 'safari',}
+        browserName: 'firefox', 'moz:firefoxOptions': {args: ['-headless',  "--width=1920", "--height=1080"]}
+    },// { browserName: 'safari',}
     ],
 
     //

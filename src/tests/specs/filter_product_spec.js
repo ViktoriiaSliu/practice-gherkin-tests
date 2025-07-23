@@ -6,10 +6,8 @@ describe('Filter Products by Category', () => {
     it('should made check in checkbox Power tools', async () => {
         
         await ProductListingPage.open('');
-        await browser.pause(1000)
 
         await ProductListingPage.powerToolsOption.click();
-        await browser.pause(1000)
        
     });
 
