@@ -38,10 +38,10 @@ describe('Add Product to Cart', () => {
     });
 
     it('should updated basket icon', async () => {
-        await browser.pause(5000)
+        await browser.pause(1000)
 
         const basketCount = await ProductDetailsPage.getBasketCount();
-        await browser.pause(5000)
+        await browser.pause(1000)
         expect(basketCount).to.equal(expectedQuantity);
 
     });

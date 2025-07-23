@@ -8,7 +8,7 @@ class ProductDetailsPage extends BasePage {
     get quantityInput() { return $('input[data-test="quantity"]'); }
     get addToCartButton() { return $('button[data-test="add-to-cart"]'); }
     get successMessage() { return $('#toast-container'); }
-    get basketIconBadge() { return $('span[data-test="cart-quantity"]'); }
+    get basketIconBadge() { return $('#lblCartCount'); }
     get productLink() { return $('//a[./div/img[@alt="Bolt Cutters"]]'); }
 
     async getBasketCount() {
@@ -18,3 +18,4 @@ class ProductDetailsPage extends BasePage {
 
 }
 export default new ProductDetailsPage();
+
