@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+        triggers {
+        cron('H H/2 * * *')
+    }
+
     stages { 
 
         stage('Install Dependencies') { 
