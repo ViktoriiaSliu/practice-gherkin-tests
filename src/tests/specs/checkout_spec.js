@@ -15,14 +15,18 @@ describe('Proceed to Checkout with Items in the Cart', () => {
     it('should open cart page and proceed with checkout', async () => {
 
         await ProductDetailsPage.open('');
+        await browser.pause(2000)
         await ProductDetailsPage.productLink.click();
+        await browser.pause(2000)
         await ProductDetailsPage.addToCartButton.click();
+        await browser.pause(3000)
 
         await ProductDetailsPage.successPopupMessage.waitForDisplayed({ reverse: true, timeout: 10000 });
 
         await BasePage.waitUntilClickable(CartPage.cartIcon, BasePage.timeout, 'Cart icon not clickable');
 
         await CartPage.cartIcon.click();
+        await browser.pause(2000)
 
         const cartItemName = (await CartPage.cartItemTitle.getText()).trim();
         const expectedItemName = testData.products.boltCutters;

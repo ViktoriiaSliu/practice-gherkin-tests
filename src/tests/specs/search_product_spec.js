@@ -10,8 +10,10 @@ describe('Search for an Existing Product', () => {
     it('should add product name in search field', async () => {
 
         await ProductListingPage.open('');
+        await browser.pause(1000)
 
         await ProductListingPage.searchProduct(productNameSearch);
+        await browser.pause(1000)
 
         const headerText = await ProductListingPage.searchResultTitle.getText();
         expect(headerText).to.include(productNameSearch);

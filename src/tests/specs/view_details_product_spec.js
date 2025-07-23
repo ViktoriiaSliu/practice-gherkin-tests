@@ -11,6 +11,7 @@ describe('View Product Details', () => {
         await ProductListingPage.open('');
 
         await ProductListingPage.selectProduct(productDetailsName);
+        await browser.pause(1000)
 
     });
 
