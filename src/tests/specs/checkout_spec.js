@@ -12,6 +12,37 @@ describe('Proceed to Checkout with Items in the Cart', () => {
     const validBillingDetails = testData.user;
     const validCardDetails = testData.card;
 
+    before(async () => {
+
+        await RegisterPage.open();
+
+        await RegisterPage.registerUser(loginUserData);
+
+        const loginUrl = '/auth/login';
+
+        let redirected = false;
+        try {
+            await BasePage.waitUntilUrlContains(loginUrl, 5000, 'Waiting for redirect to login page after registration');
+            redirected = true;
+        } catch (error) {
+            redirected = false;
+        }
+
+        if (!redirected) {
+            const existsMsgDisplayed = await RegisterPage.errorLoginMessage.isDisplayed();
+            if (existsMsgDisplayed) {
+                console.warn('User already exists. Proceeding to login instead...');
+            } else {
+                throw new Error('Registration failed for unknown reason (no redirect or error message)');
+            }
+        }
+
+        await LoginPage.open();
+
+        await BasePage.waitUntilUrlContains('/auth/login', BasePage.timeout, 'Expected to be redirected to login page');
+
+    });
+
     it('should open cart page and proceed with checkout', async () => {
 
         await ProductDetailsPage.open('');
