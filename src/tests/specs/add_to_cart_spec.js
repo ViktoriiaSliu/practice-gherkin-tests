@@ -41,6 +41,7 @@ describe('Add Product to Cart', () => {
         await browser.pause(5000)
 
         const basketCount = await ProductDetailsPage.getBasketCount();
+        await browser.pause(1000)
         expect(basketCount).to.equal(expectedQuantity);
 
     });
