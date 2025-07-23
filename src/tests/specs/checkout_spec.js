@@ -24,7 +24,7 @@ describe('Proceed to Checkout with Items in the Cart', () => {
         await ProductDetailsPage.successPopupMessage.waitForDisplayed({ reverse: true, timeout: 10000 });
 
         await BasePage.waitUntilClickable(CartPage.cartIcon, BasePage.timeout, 'Cart icon not clickable');
-        await browser.pause(5000)
+        await browser.pause(7000)
 
         await CartPage.cartIcon.click();
         await browser.pause(2000)
