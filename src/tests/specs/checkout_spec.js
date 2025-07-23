@@ -1,6 +1,8 @@
 import ProductDetailsPage from '../pageObjects/product_detail_page.js';
 import BasePage from '../pageObjects/base_page.js';
 import CartPage from '../pageObjects/cart_page.js';
+import RegisterPage from '../pageObjects/register_page.js';
+import LoginPage from '../pageObjects/login_page.js';
 import {expect} from 'chai';
 import { testData } from '../data/test_data.js';
 
@@ -11,6 +13,7 @@ describe('Proceed to Checkout with Items in the Cart', () => {
     const validPassword = testData.loginUser.password;
     const validBillingDetails = testData.user;
     const validCardDetails = testData.card;
+    const loginUserData = testData.userStatic;
 
     before(async () => {
 
