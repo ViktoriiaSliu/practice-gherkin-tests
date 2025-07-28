@@ -19,7 +19,7 @@ describe('Sort Products by Price: Low to High', () => {
       return firstPriceAfter !== firstPriceBefore;
     }, 'Expected product list to update after sorting within 5s');
   });
-  
+
   it('should display products sorted by Price Low to High', async () => {
     const priceElements = await ProductListingPage.productPrices;
 

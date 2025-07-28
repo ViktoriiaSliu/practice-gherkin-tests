@@ -6,7 +6,6 @@ import { testData } from '../data/test_data.js';
 const productNameSearch = testData.products.hammer;
 
 describe('Search for an Existing Product', () => {
-
   it('should add product name in search field', async () => {
     await ProductListingPage.open('');
 

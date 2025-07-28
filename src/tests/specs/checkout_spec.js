@@ -13,7 +13,6 @@ const validCardDetails = testData.card;
 const loginUserData = testData.userStatic;
 
 describe('Proceed to Checkout with Items in the Cart', () => {
-
   before(async () => {
     await RegisterPage.open();
 
@@ -92,7 +91,7 @@ describe('Proceed to Checkout with Items in the Cart', () => {
 
     await CartPage.proceedToCheckoutBtnBill.click();
   });
-  
+
   it('should let you enter payment data', async () => {
     await CartPage.fillPaymentDetails(validCardDetails);
 

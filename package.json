@@ -18,6 +18,7 @@
     "@wdio/spec-reporter": "^9.16.2",
     "chai": "^5.2.0",
     "eslint": "^9.32.0",
+    "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-chai-friendly": "^1.1.0",
     "eslint-plugin-mocha": "^11.1.0",
     "eslint-plugin-wdio": "^9.16.2",

@@ -5,7 +5,6 @@ import { testData } from '../data/test_data.js';
 const productDetailsName = testData.products.boltCutters;
 
 describe('View Product Details', () => {
-
   it('should open product Bolt Cutters', async () => {
     await ProductListingPage.open('');
 

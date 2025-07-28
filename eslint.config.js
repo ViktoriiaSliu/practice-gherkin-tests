@@ -4,6 +4,7 @@ import { defineConfig, globalIgnores } from 'eslint/config';
 import mochaPlugin from 'eslint-plugin-mocha';
 import { configs as wdioConfig } from 'eslint-plugin-wdio';
 import pluginChaiFriendly from 'eslint-plugin-chai-friendly';
+import eslintConfigPrettier from "eslint-config-prettier/flat";
 
 export default defineConfig([
   globalIgnores([
@@ -17,6 +18,7 @@ export default defineConfig([
   mochaPlugin.configs.recommended,
   wdioConfig['flat/recommended'],
   js.configs.recommended,
+  eslintConfigPrettier,
   {
     plugins: { 'chai-friendly': pluginChaiFriendly, js },
     files: ['**/*.{js,mjs,cjs}'],
@@ -32,8 +34,6 @@ export default defineConfig([
       } 
     },
     rules: {
-      semi: ['error', 'always'],
-      quotes: ['error', 'single', { avoidEscape: true }],
       'no-unused-vars': ['warn'],
       'no-console': 'off',
       'prefer-const': 'warn',

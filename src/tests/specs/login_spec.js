@@ -7,7 +7,6 @@ import { testData } from '../data/test_data.js';
 const loginUserData = testData.userStatic;
 
 describe('Successful User Login', () => {
-
   before(async () => {
     await RegisterPage.open();
 
@@ -60,7 +59,7 @@ describe('Successful User Login', () => {
     const currentUrl = await browser.getUrl();
     expect(currentUrl).to.include('https://practicesoftwaretesting.com/account');
   });
-  
+
   it('should display the My Account header', async () => {
     const headerText = await LoginPage.getDashboardHeaderText();
     const expectedHeaderText = testData.strings.acountHeaderTitle;
