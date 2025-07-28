@@ -14,6 +14,14 @@ pipeline {
             }
         }
 
+        stage('Lint and Format Check') {
+            steps {
+                echo "Linting code..."
+                bat 'npm run lint'
+                bat 'npm run format'
+            }
+        }
+
         stage('Run UI Tests') {
             steps {
                 echo "Running WebdriverIO UI tests..."

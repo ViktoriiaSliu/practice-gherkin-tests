@@ -1,45 +1,38 @@
 import ProductDetailsPage from '../pageObjects/product_detail_page.js';
-import {expect} from 'chai';
+import { expect } from 'chai';
 import { testData } from '../data/test_data.js';
 
+const expectedQuantity = testData.strings.quantityInput;
+
 describe('Add Product to Cart', () => {
-    const expectedQuantity = testData.strings.quantityInput;
+  it('should open Bolt Cutters page', async () => {
+    await ProductDetailsPage.open('');
+    await ProductDetailsPage.productLink.click();
 
-    it('should open Bolt Cutters page', async () => {
+    const actualProductTitle = await ProductDetailsPage.productTitle.getText();
+    const expectedProductTitle = testData.products.boltCutters;
+    await expect(actualProductTitle).to.equal(expectedProductTitle);
+  });
 
-        await ProductDetailsPage.open('');
-        await ProductDetailsPage.productLink.click();
+  it('should add 2 Bolt Cutters to the quantity input', async () => {
+    await ProductDetailsPage.quantityInput.setValue(expectedQuantity);
 
-        const actualProductTitle  =  await ProductDetailsPage.productTitle.getText();
-        const expectedProductTitle = testData.products.boltCutters;
-        await expect(actualProductTitle).to.equal(expectedProductTitle );
+    const injectedQuantity = await ProductDetailsPage.quantityInput.getValue();
 
-    });
+    await expect(injectedQuantity).to.equal(expectedQuantity);
+  });
 
-    it('should add 2 Bolt Cutters to the quantity input', async () => {
+  it('should add 2 Bolt Cutters to the cart with success message', async () => {
+    await ProductDetailsPage.addToCartButton.click();
 
-        await ProductDetailsPage.quantityInput.setValue(expectedQuantity);
+    const successText = await ProductDetailsPage.successMessage.getText();
+    const expectedSuccessText = testData.strings.successAddMessageTxt;
+    expect(successText.toLowerCase()).to.include(expectedSuccessText.toLowerCase());
+  });
 
-        const injectedQuantity = await ProductDetailsPage.quantityInput.getValue();
+  it('should updated basket icon', async () => {
+    const basketCount = await ProductDetailsPage.getBasketCount();
 
-        await expect(injectedQuantity).to.equal(expectedQuantity);
-
-    });
-    it('should add 2 Bolt Cutters to the cart with success message', async () => {
-
-        await ProductDetailsPage.addToCartButton.click();
-
-        const successText = await ProductDetailsPage.successMessage.getText();
-        const expectedSuccessText = testData.strings.successAddMessageTxt;
-        expect(successText.toLowerCase()).to.include(expectedSuccessText.toLowerCase());
-    });
-
-    it('should updated basket icon', async () => {
-
-        const basketCount = await ProductDetailsPage.getBasketCount();
-
-        expect(basketCount).to.equal(expectedQuantity);
-
-    });
-
+    expect(basketCount).to.equal(expectedQuantity);
+  });
 });
