@@ -27,7 +27,7 @@ pipeline {
             }
         }
 
-        stage('Run UI Tests') {
+        stage('Run UI Tests by Cucumber') {
             steps {
                 echo "Running WebdriverIO UI tests..."
                 bat 'npx wdio run wdio.conf.js' 
