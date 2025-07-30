@@ -4,9 +4,6 @@ pipeline {
         triggers {
         cron('H H/2 * * *')
     }
-    tools {
-        allure 'allure-2.27.0'
-        }
     stages { 
 
         stage('Install Dependencies') { 
