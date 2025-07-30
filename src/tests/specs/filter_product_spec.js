@@ -15,7 +15,11 @@ describe('Filter Products by Category', () => {
       return productTitles && productTitles.length > 0;
     }, 'Expected at least one product to be displayed after filtering');
 
-    const productTitles = await ProductListingPage.productPrices;
-    expect(productTitles.length).to.be.greaterThan(0);
+    const expectedKeywords = ['grinder', 'sander', 'saw', 'drill'];
+
+    const allMatch = await ProductListingPage.areAllProductTitlesInCategories(expectedKeywords);
+
+    expect(allMatch, `Not all product titles include one of: ${expectedKeywords.join(', ')}`).to.be
+      .true;
   });
 });

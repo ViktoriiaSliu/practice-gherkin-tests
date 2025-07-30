@@ -11,14 +11,13 @@ const validPassword = testData.loginUser.password;
 const validBillingDetails = testData.user;
 const validCardDetails = testData.card;
 const loginUserData = testData.userStatic;
+const loginUrl = '/auth/login';
 
 describe('Proceed to Checkout with Items in the Cart', () => {
   before(async () => {
     await RegisterPage.open();
 
     await RegisterPage.registerUser(loginUserData);
-
-    const loginUrl = '/auth/login';
 
     let redirected = false;
     try {
@@ -45,7 +44,7 @@ describe('Proceed to Checkout with Items in the Cart', () => {
     await LoginPage.open();
 
     await BasePage.waitUntilUrlContains(
-      '/auth/login',
+      loginUrl,
       BasePage.timeout,
       'Expected to be redirected to login page'
     );

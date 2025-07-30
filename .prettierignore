@@ -5,3 +5,4 @@ allure-report
 .prettierrc
 wdio.conf.js
 eslint.config.js
+cucumber.json

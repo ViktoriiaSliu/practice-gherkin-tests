@@ -22,26 +22,10 @@ export const config = {
     // of the config file unless it's absolute.
     //
     specs: [
-        './src/tests/specs/**/*_spec.js'
+        './src/tests/features/**/*.feature'
     ],
-    suites: {
-        signUpLogin: [
-            './src/tests/specs/**/register_spec.js',
-            './src/tests/specs/**/login_spec.js'
-        ],
-        filterSort: [
-            './src/tests/specs/**/filter_product_spec.js',
-            './src/tests/specs/**/sort_product_spec.js'
-        ],
-        prodSearch: [
-            './src/tests/specs/**/search_product_spec.js',
-            './src/tests/specs/**/view_details_product_spec.js'
-        ],
-        cartCheckout: [
-            './src/tests/specs/**/add_to_cart_spec.js',
-            './src/tests/specs/**/checkout_spec.js'
-        ],
-    },
+    //suites: {
+   // },
     // Patterns to exclude.
     exclude: [
         // 'path/to/excluded/files'
@@ -123,9 +107,9 @@ export const config = {
     // your test setup with almost no effort. Unlike plugins, they don't add new
     // commands. Instead, they hook themselves up into the test process.
      //services: [
-       // 'chromedriver',
-       // 'geckodriver'
-      //],
+    //'chromedriver',
+      // 'geckodriver'
+     // ],
     //
     // Framework you want to run your specs with.
     // The following are supported: Mocha, Jasmine, and Cucumber
@@ -133,7 +117,7 @@ export const config = {
     //
     // Make sure you have the wdio adapter package for the specific framework installed
     // before running any tests.
-    framework: 'mocha',
+    framework: 'cucumber', 
     
     //
     // The number of times to retry the entire specfile when it fails as a whole
@@ -158,9 +142,20 @@ export const config = {
 
     // Options to be passed to Mocha.
     // See the full list at http://mochajs.org/
-    mochaOpts: {
-        ui: 'bdd',
-        timeout: 60000
+    cucumberOpts: {
+        require: ['./src/tests/features/step-definitions/*.js'], 
+        backtrace: true,
+        requireModule: [],
+        dryRun: false,
+        failFast: false,
+        format: ['pretty'],
+        snippets: true,
+        source: true,
+        strict: true,
+        debug: true,
+        tagExpression: '@smoke or @regression or @login or @registration or @search or @view or @addCart or @checkout', 
+        timeout: 120000,
+        ignoreUndefinedDefinitions: false,
     },
 
     //

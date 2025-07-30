@@ -5,14 +5,13 @@ import { expect } from 'chai';
 import { testData } from '../data/test_data.js';
 
 const loginUserData = testData.userStatic;
+const loginUrl = '/auth/login';
 
 describe('Successful User Login', () => {
   before(async () => {
     await RegisterPage.open();
 
     await RegisterPage.registerUser(loginUserData);
-
-    const loginUrl = '/auth/login';
 
     let redirected = false;
     try {
@@ -39,7 +38,7 @@ describe('Successful User Login', () => {
     await LoginPage.open();
 
     await BasePage.waitUntilUrlContains(
-      '/auth/login',
+      loginUrl,
       BasePage.timeout,
       'Expected to be redirected to login page'
     );

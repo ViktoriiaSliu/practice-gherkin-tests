@@ -46,6 +46,9 @@ class ProductListingPage extends BasePage {
   productImage(name) {
     return $(`img[alt="${name}"]`);
   }
+  get productTitles() {
+    return $$('.card-title');
+  }
 
   async searchProduct(name) {
     await this.searchInput.setValue(name);
@@ -61,6 +64,25 @@ class ProductListingPage extends BasePage {
     const product = await this.productLink(name);
     await product.waitForClickable({ timeout: this.timeout });
     await product.click();
+  }
+
+  async areAllProductTitlesInCategories(keywords) {
+    const productTitleElements = await this.productTitles;
+
+    if (productTitleElements.length === 0) {
+      console.warn('No product titles found on the page.');
+      return false;
+    }
+
+    const titlesText = await Promise.all(productTitleElements.map((el) => el.getText()));
+    console.log('Product titles found:', titlesText);
+
+    const allTitlesMatch = titlesText.every((title) => {
+      const lowerCaseTitle = title.toLowerCase();
+      return keywords.some((keyword) => lowerCaseTitle.includes(keyword.toLowerCase()));
+    });
+
+    return allTitlesMatch;
   }
 }
 

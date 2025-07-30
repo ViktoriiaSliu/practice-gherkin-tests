@@ -4,20 +4,29 @@ pipeline {
         triggers {
         cron('H H/2 * * *')
     }
+    tools {
+        nodejs 'NodeJS_18' 
+    }
 
     stages { 
 
         stage('Install Dependencies') { 
             steps {
                 echo "Installing Node.js dependencies..."
-                bat 'npm install' 
+                bat 'npm ci' 
             }
         }
 
-        stage('Lint and Format Check') {
+        stage('Run ESLint') {
             steps {
                 echo "Linting code..."
                 bat 'npm run lint'
+            }
+        }
+
+        stage('Check Prettier Format') {
+            steps {
+                echo "Formatting code..."
                 bat 'npm run format'
             }
         }
@@ -28,11 +37,18 @@ pipeline {
                 bat 'npx wdio run wdio.conf.js' 
             }
         }
+        stage('Publish Allure Report') {
+            steps {
+                echo "Publishing Allure Report..."
+                allure includeProperties: false, jdk: '', results: [[path: "${env.ALLURE_RESULTS_DIR}"]]
+            }
+        }
     }
 
     post {
         always { 
             echo 'Pipeline finished!'
+            archiveArtifacts artifacts: '**/allure-results/*.json', allowEmptyArchive: true
 
         }
         success {

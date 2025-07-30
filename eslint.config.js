@@ -1,7 +1,6 @@
 import js from '@eslint/js';
 import globals from 'globals';
 import { defineConfig, globalIgnores } from 'eslint/config';
-import mochaPlugin from 'eslint-plugin-mocha';
 import { configs as wdioConfig } from 'eslint-plugin-wdio';
 import pluginChaiFriendly from 'eslint-plugin-chai-friendly';
 import eslintConfigPrettier from "eslint-config-prettier/flat";
@@ -15,18 +14,20 @@ export default defineConfig([
     'allure-results',
     'eslint.config.js',
   ]),
-  mochaPlugin.configs.recommended,
   wdioConfig['flat/recommended'],
   js.configs.recommended,
   eslintConfigPrettier,
   {
     plugins: { 'chai-friendly': pluginChaiFriendly, js },
-    files: ['**/*.{js,mjs,cjs}'],
+    files: ['**/*.{js,mjs,cjs}', '**/*.steps.js'],
     languageOptions: { 
       globals: {
         ...globals.browser,
         ...globals.node,     
-        ...globals.mocha,   
+        ...globals.mocha, 
+        Given: 'readonly',
+        When: 'readonly',
+        Then: 'readonly',  
         expect: true,       
         driver: true,      
         $: true,           
