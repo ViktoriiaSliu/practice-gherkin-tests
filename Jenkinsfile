@@ -4,6 +4,9 @@ pipeline {
         triggers {
         cron('H H/2 * * *')
     }
+    tools {
+        allure 'allure-2.27.0'
+        }
     stages { 
 
         stage('Install Dependencies') { 
@@ -36,7 +39,11 @@ pipeline {
         stage('Publish Allure Report') {
             steps {
                 echo "Publishing Allure Report..."
-                allure includeProperties: false, jdk: '', results: [[path: "${env.ALLURE_RESULTS_DIR}"]]
+                allure([
+                    includeProperties: false,
+                    jdk: '',
+                    results: [[path: 'allure-results']]
+                    ])
             }
         }
     }
@@ -44,7 +51,6 @@ pipeline {
     post {
         always { 
             echo 'Pipeline finished!'
-            archiveArtifacts artifacts: '**/allure-results/*.json', allowEmptyArchive: true
 
         }
         success {
