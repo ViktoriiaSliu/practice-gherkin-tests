@@ -4,10 +4,6 @@ pipeline {
         triggers {
         cron('H H/2 * * *')
     }
-    tools {
-        nodejs 'NodeJS_18' 
-    }
-
     stages { 
 
         stage('Install Dependencies') { 
