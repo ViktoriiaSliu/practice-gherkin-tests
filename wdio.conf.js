@@ -1,4 +1,4 @@
-const chai = import('chai');
+import { expect, assert } from 'chai';
 export const config = {
     //
     // ====================
@@ -66,7 +66,7 @@ export const config = {
     // Define all options that are relevant for the WebdriverIO instance here
     //
     // Level of logging verbosity: trace | debug | info | warn | error | silent
-    logLevel: 'info',
+    logLevel: 'debug',
     //
     // Set specific log levels per logger
     // loggers:
@@ -135,8 +135,9 @@ export const config = {
     reporters: ['spec',
         ['allure', {
             outputDir: 'allure-results',
-            disableWebdriverStepsReporting: true, 
-            disableWebdriverScreenshotsReporting: false, 
+            disableWebdriverStepsReporting: false, 
+            disableWebdriverScreenshotsReporting: false,
+            useCucumberStepReporter: true, 
         }]
     ],
 

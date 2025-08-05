@@ -1,21 +1,21 @@
 import { Given, When, Then } from '@cucumber/cucumber';
 import ProductListingPage from '../../pageObjects/product_listing_page.js';
 import { expect } from 'chai';
-import { testData } from '../../data/test_data.js';
+//import { testData } from '../../data/test_data.js';
 
-const productDetailsName = testData.products.boltCutters;
+//const productDetailsName = testData.products.boltCutters;
 
 Given('I am on the product listing page', async () => {
   await ProductListingPage.open('');
 });
 
-When('I select the testing product', async () => {
-  await ProductListingPage.selectProduct(productDetailsName);
+When('I select the {string} product', async (productName) => {
+  await ProductListingPage.selectProduct(productName);
 });
 
-Then('I should see the testing product title', async () => {
+Then('I should see the {string} product title', async (productName) => {
   const title = await ProductListingPage.productTitle.getText();
-  expect(title).to.equal(productDetailsName);
+  expect(title).to.equal(productName);
 });
 
 Then('I should see a description for the testing product', async () => {

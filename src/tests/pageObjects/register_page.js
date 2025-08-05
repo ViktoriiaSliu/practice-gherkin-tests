@@ -35,7 +35,7 @@ class RegisterPage extends BasePage {
     return $('input[id="password"]');
   }
   get registerButton() {
-    return $('button[type="submit"]');
+    return $('button[class="btnSubmit mb-3"]');
   }
   get loginHeader() {
     return $('h3=Login');
@@ -44,7 +44,7 @@ class RegisterPage extends BasePage {
     return $('input[data-test="login-submit"]');
   }
   get errorLoginMessage() {
-    return $('div[_ngcontent-ng-c1437189899] .help-block');
+    return $('[data-test="register-error"]');
   }
 
   async registerUser(user) {

@@ -1,44 +1,39 @@
 import { Given, When, Then } from '@cucumber/cucumber';
 import ProductDetailsPage from '../../pageObjects/product_detail_page.js';
-import { expect } from 'chai';
-import { testData } from '../../data/test_data.js';
+import { expect } from 'chai';;
 
-const expectedQuantity = testData.strings.quantityInput;
-
-Given('I am on the Bolt Cutters product details page', async () => {
+Given(/^I am on the "([^"]*)" product details page$/, async (productName) => {
   await ProductDetailsPage.open('');
   await ProductDetailsPage.productLink.click();
 
   const actualProductTitle = await ProductDetailsPage.productTitle.getText();
-  const expectedProductTitle = testData.products.boltCutters;
-  await expect(actualProductTitle).to.equal(expectedProductTitle);
+  await expect(actualProductTitle).to.equal(productName);
 });
 
-When('I set the quantity of product', async () => {
-  await ProductDetailsPage.quantityInput.setValue(expectedQuantity);
+When(/^I set the amount to "([^"]*)"$/, async (quantity) => {
+  await ProductDetailsPage.quantityInput.setValue(quantity);
 
   const injectedQuantity = await ProductDetailsPage.quantityInput.getValue();
 
-  await expect(injectedQuantity).to.equal(expectedQuantity);
+  await expect(injectedQuantity).to.equal(quantity.toString());
 });
 
-When('I add the product to the cart', async () => {
+When(/^I add the product to the cart$/, async () => {
   await ProductDetailsPage.addToCartButton.click();
 });
 
-Then('I should see a success message indicating product were added', async () => {
+Then(/^I should see a success message with text "([^"]*)"$/, async (successMessages) => {
   await ProductDetailsPage.successPopupMessage.waitForDisplayed({
     reverse: true,
     timeout: 120000,
   });
 
   const successText = await ProductDetailsPage.successMessage.getText();
-  const expectedSuccessText = testData.strings.successAddMessageTxt;
-  expect(successText.toLowerCase()).to.include(expectedSuccessText.toLowerCase());
+  expect(successText.toLowerCase()).to.include(successMessages.toLowerCase());
 });
 
-Then('the basket icon should show the quantity of product', async () => {
+Then(/^the basket icon should show the amount "([^"]*)"$/, async (quantity) => {
   const basketCount = await ProductDetailsPage.getBasketCount();
 
-  expect(basketCount).to.equal(expectedQuantity);
+  expect(basketCount).to.equal(quantity.toString());
 });

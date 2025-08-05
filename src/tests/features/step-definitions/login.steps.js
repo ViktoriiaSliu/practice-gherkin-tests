@@ -1,19 +1,29 @@
-import { Given, When, Then } from '@cucumber/cucumber';
+import { Given, When, Then, Before } from '@cucumber/cucumber';
 import { expect } from 'chai';
 import LoginPage from '../../pageObjects/login_page.js';
 import RegisterPage from '../../pageObjects/register_page.js';
 import BasePage from '../../pageObjects/base_page.js';
-import { testData } from '../../data/test_data.js';
+import { usersToTests } from '../../data/users.js';
 
-const loginUserData = testData.userStatic;
+
 const loginUrl = '/auth/login';
+const getUserData = (userTest) => {
+    const user = usersToTests.users[userTest];
+    if (!user) {
+        throw new Error(`User alias '${userTest}' not found in users.js`);
+    }
+    return user;
+};
 
-Given('I register a new user if not already registered', async () => {
+Before({ tags: '@login' }, async function () {
+  const userStat = 'userStatic';
+  const user = getUserData(userStat);
+
   await RegisterPage.open();
-  await RegisterPage.registerUser(loginUserData);
+  console.log('Registering user before login scenario...');
+  await RegisterPage.registerUser(user);
 
   let redirected = false;
-
   try {
     await BasePage.waitUntilUrlContains(
       loginUrl,
@@ -26,23 +36,46 @@ Given('I register a new user if not already registered', async () => {
   }
 
   if (!redirected) {
-    const existsMsgDisplayed = await RegisterPage.errorLoginMessage.isDisplayed();
-    if (existsMsgDisplayed) {
-      console.warn('User already exists. Proceeding to login instead...');
+    const errorExists = await RegisterPage.errorLoginMessage.isExisting();
+    const errorDisplayed = errorExists ? await RegisterPage.errorLoginMessage.isDisplayed() : false;
+
+    if (errorDisplayed) {
+      console.warn('User already exists. Navigating to login page...');
+      await LoginPage.open();
+      await BasePage.waitUntilUrlContains(
+        loginUrl,
+        BasePage.timeout,
+        'Expected to be on login page after redirect or manual open'
+      );
     } else {
-      throw new Error('Registration failed for unknown reason (no redirect or error message)');
+      throw new Error('Registration failed with no redirect or error message');
     }
   }
 });
 
-Then('I am on the Login In page', async () => {
+Given('I am on the Login page', async () => {
   await LoginPage.open();
+  console.log('Login page oppened');
   await BasePage.waitUntilUrlContains(loginUrl, BasePage.timeout, 'Expected to be on login page');
+  await browser.pause(2000);
 });
 
-When('I log in with valid credentials', async () => {
-  await LoginPage.login(testData.loginUser.email, testData.loginUser.password);
+When(/^I log in with valid credentials "([^"]*)"$/, async (email) => {
+	console.log(email);
+  await LoginPage.emailInput.setValue(email);
+
 });
+
+When(/^I enter valid  "([^"]*)"$/, async (password) => {
+	console.log(password);
+	await LoginPage.passwordInput.setValue(password);
+});
+
+When(/^I click the login button$/, async () => {
+		await LoginPage.loginButton.click();
+    console.log('Login button clicked');
+});
+
 
 Then('I should be redirected to the account page', async () => {
   await BasePage.waitUntil(

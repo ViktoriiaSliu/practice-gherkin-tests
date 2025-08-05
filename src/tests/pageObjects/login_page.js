@@ -2,7 +2,7 @@ import BasePage from './base_page.js';
 
 class LoginPage extends BasePage {
   get emailInput() {
-    return $('input[formcontrolname="email"]');
+    return $('input[id="email"]');
   }
   get passwordInput() {
     return $('input[id="password"]');
@@ -18,11 +18,30 @@ class LoginPage extends BasePage {
     return super.open('auth/login');
   }
 
-  async login(email, password) {
-    await this.emailInput.setValue(email);
-    await this.passwordInput.setValue(password);
-    await this.loginButton.click();
-  }
+/*async login(email, password) {
+  console.log('Logging in with:', email, password);
+
+  await this.emailInput.waitForDisplayed({ timeout: 5000 });
+  console.log('Email input displayed');
+
+  const isEnabled = await this.emailInput.isEnabled();
+  const isClickable = await this.emailInput.isClickable();
+  console.log('Email input: enabled =', isEnabled, 'clickable =', isClickable);
+
+  await this.emailInput.click();
+  await this.emailInput.setValue(email);
+  
+  await this.passwordInput.waitForDisplayed({ timeout: 5000 });
+  console.log('Password input displayed');
+
+  await this.passwordInput.click();
+  await this.passwordInput.setValue(password);
+
+  await this.loginButton.waitForClickable({ timeout: 5000 });
+  console.log('Login button clickable');
+
+  await this.loginButton.click();
+}*/
 
   async getDashboardHeaderText() {
     await this.dashboardHeader.waitForDisplayed({ timeout: this.timeout });

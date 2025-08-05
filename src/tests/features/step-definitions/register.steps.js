@@ -3,8 +3,16 @@ import { Given, When, Then } from '@cucumber/cucumber';
 import BasePage from '../../pageObjects/base_page.js';
 import { expect } from 'chai';
 import { testData } from '../../data/test_data.js';
+import { usersToTests } from '../../data/users.js';
 
 const registerUrl = '/register';
+const getUserData = (userTest) => {
+    const user = usersToTests.users[userTest];
+    if (!user) {
+        throw new Error(`User alias '${userTest}' not found in users.js`);
+    }
+    return user;
+};
 
 Given('I am on the registration page', async () => {
   await RegisterPage.open();
@@ -13,11 +21,13 @@ Given('I am on the registration page', async () => {
     BasePage.timeout,
     'Expected to be on registration page'
   );
+  await RegisterPage.waitForElement(RegisterPage.registerButton, 5000);
   expect(await RegisterPage.registerButton.isDisplayed()).to.be.true;
 });
 
-When('I register a new user with valid details', async () => {
-  await RegisterPage.registerUser(testData.user);
+When('I register a new user with alias {string}', async (userTest) => {
+  const userDynamic = getUserData(userTest);
+  await RegisterPage.registerUser(userDynamic);
 });
 
 Then('I should see the login header', async () => {
